@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="G2S-nW-egP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -117,11 +117,105 @@
                         <outlet property="nameTextField" destination="eLP-xO-4h4" id="Kfn-Am-Swf"/>
                         <outlet property="phoneTextField" destination="gAm-Xe-qaR" id="gKa-7X-Y3G"/>
                         <outlet property="surnameTextField" destination="tU9-69-kvr" id="Nxq-UX-Apy"/>
+                        <segue destination="G2S-nW-egP" kind="show" identifier="showContactsSegue" id="IRB-zY-rNB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
+            <point key="canvasLocation" x="74" y="349"/>
+        </scene>
+        <!--Contacts View Controller-->
+        <scene sceneID="UJz-f2-8Dt">
+            <objects>
+                <viewController id="G2S-nW-egP" customClass="ContactsViewController" customModule="addressBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9yW-wa-e6a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gEr-A4-6ch">
+                                <rect key="frame" x="0.0" y="90" width="375" height="577"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="72" id="NP7-ng-8Ui" customClass="ContactsTableViewCell" customModule="addressBook" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="72"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NP7-ng-8Ui" id="g8n-13-5xq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjg-I4-mIV">
+                                                    <rect key="frame" x="31" y="11" width="317" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="kjg-I4-mIV" secondAttribute="trailing" constant="27" id="2vZ-2a-se0"/>
+                                                <constraint firstItem="kjg-I4-mIV" firstAttribute="leading" secondItem="g8n-13-5xq" secondAttribute="leading" constant="31" id="AZG-I4-MXi"/>
+                                                <constraint firstItem="kjg-I4-mIV" firstAttribute="top" secondItem="g8n-13-5xq" secondAttribute="top" constant="11" id="OXq-Ho-KnR"/>
+                                                <constraint firstAttribute="bottom" secondItem="kjg-I4-mIV" secondAttribute="bottom" constant="16.5" id="zHZ-ln-Ro7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="kjg-I4-mIV" id="MSc-xj-Hw6"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="G2S-nW-egP" id="wGL-lp-cgT"/>
+                                    <outlet property="delegate" destination="G2S-nW-egP" id="i08-de-ghh"/>
+                                </connections>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POB-sw-HzM">
+                                <rect key="frame" x="0.0" y="46" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Contacts" id="823-Wv-sJs">
+                                        <barButtonItem key="rightBarButtonItem" title="+" id="uJN-Mc-vhi">
+                                            <connections>
+                                                <action selector="addNewContact:" destination="G2S-nW-egP" id="pfw-8r-0nN"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gEr-A4-6ch" firstAttribute="top" secondItem="z8f-vl-xON" secondAttribute="top" constant="70" id="2gZ-KI-195"/>
+                            <constraint firstItem="z8f-vl-xON" firstAttribute="bottom" secondItem="gEr-A4-6ch" secondAttribute="bottom" id="Anp-Hw-liF"/>
+                            <constraint firstItem="gEr-A4-6ch" firstAttribute="leading" secondItem="z8f-vl-xON" secondAttribute="leading" id="DE1-cV-zFh"/>
+                            <constraint firstItem="z8f-vl-xON" firstAttribute="trailing" secondItem="POB-sw-HzM" secondAttribute="trailing" id="RC6-qv-Kv4"/>
+                            <constraint firstItem="POB-sw-HzM" firstAttribute="leading" secondItem="z8f-vl-xON" secondAttribute="leading" id="nIw-wl-HBD"/>
+                            <constraint firstItem="z8f-vl-xON" firstAttribute="trailing" secondItem="gEr-A4-6ch" secondAttribute="trailing" id="nxY-Hp-LtH"/>
+                            <constraint firstItem="POB-sw-HzM" firstAttribute="top" secondItem="z8f-vl-xON" secondAttribute="top" constant="26" id="qo8-NS-5P0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="z8f-vl-xON"/>
+                    </view>
+                    <connections>
+                        <outlet property="contactsTableView" destination="gEr-A4-6ch" id="Rkp-Kz-p67"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="addNewContact" id="qan-37-GSF"/>
+                        <segue destination="Cha-12-MgZ" kind="showDetail" identifier="showInfo" id="vyd-tS-UKH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aKe-SF-ZBP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1045.5999999999999" y="132.68365817091455"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="V0X-Dx-hWa">
+            <objects>
+                <viewController id="Cha-12-MgZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uBa-86-Jrh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="yJ0-eD-hDM"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ln2-Ni-KBm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2113" y="99"/>
         </scene>
     </scenes>
 </document>
