@@ -57,6 +57,8 @@ class ContactsViewController : UIViewController {
         let data = coder.encodedData
         defaults.set(data, forKey: "contactList")
         
+        
+        
     }
 
 }
