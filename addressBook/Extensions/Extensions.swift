@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-extension ViewController {
+extension AddContactViewController {
     func hideKeyboardWhenSwipe() {
-        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(AddContactViewController.dismissKeyboard))
         swipe.cancelsTouchesInView = false
         swipe.direction = .down
         view.isUserInteractionEnabled = true

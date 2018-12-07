@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class InfoViewController : UIViewController {
+class EditViewController : UIViewController {
 
     var contactList = [Contact]()
     

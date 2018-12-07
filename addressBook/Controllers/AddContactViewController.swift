@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class AddContactViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -16,16 +16,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var companyTextField: UITextField!
     
+    
     let defaults = UserDefaults.standard
     var contactList = [Contact]()
+    weak var delegate : DataSendDelegate?
     
     @IBAction func saveButtonAction(_ sender: UIButton) {
-        var contact = Contact()
+        let contact = Contact()
         createContact(contact: contact)
-        contactList.append(contact)
-        insertItems()
-        
-        self.performSegue(withIdentifier: "showContactsSegue", sender: contactList)
+        delegate?.sendData(contact: contact)
+        self.dismiss(animated: true, completion: nil)
+
     }
     
     override func viewDidLoad() {
@@ -40,17 +41,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         phoneTextField.inputAccessoryView = toolBar
         companyTextField.inputAccessoryView = toolBar
         readItems()
-        
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showContactsSegue"{
-            let controller = segue.destination as! ContactsViewController
-            guard let selected = sender as? [Contact] else {return}
-            controller.contactList = selected
-        }
-    }
-    
+
     func insertItems(){
         let data = NSKeyedArchiver.archivedData(withRootObject: contactList)
         defaults.set(data, forKey: "contactList")

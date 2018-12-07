@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import Contacts
+import ContactsUI
+
 
 class Contact: NSObject,NSCoding{
     
@@ -14,13 +17,6 @@ class Contact: NSObject,NSCoding{
     var surname : String = ""
     var phone : String = ""
     var company : String = ""
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "name")
-        aCoder.encode(surname, forKey: "surname")
-        aCoder.encode(phone, forKey: "phone")
-        aCoder.encode(company, forKey: "company")
-    }
     
     required convenience init?(coder aDecoder: NSCoder) {
         let name = aDecoder.decodeObject(forKey: "name") as! String
@@ -39,5 +35,23 @@ class Contact: NSObject,NSCoding{
     
     override init() {
         super.init()
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(surname, forKey: "surname")
+        aCoder.encode(phone, forKey: "phone")
+        aCoder.encode(company, forKey: "company")
+    }
+}
+
+extension Contact {
+    var contactValue : CNContact{
+        let contact = CNMutableContact()
+
+        contact.givenName = name
+        contact.familyName = surname
+
+        return contact.copy() as! CNContact
     }
 }

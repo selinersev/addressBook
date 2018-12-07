@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Add Contact View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="addressBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AddContactViewController" customModule="addressBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -117,12 +117,11 @@
                         <outlet property="nameTextField" destination="eLP-xO-4h4" id="Kfn-Am-Swf"/>
                         <outlet property="phoneTextField" destination="gAm-Xe-qaR" id="gKa-7X-Y3G"/>
                         <outlet property="surnameTextField" destination="tU9-69-kvr" id="Nxq-UX-Apy"/>
-                        <segue destination="G2S-nW-egP" kind="show" identifier="showContactsSegue" id="IRB-zY-rNB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="74" y="349"/>
+            <point key="canvasLocation" x="1334" y="652"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="UJz-f2-8Dt">
@@ -171,7 +170,7 @@
                                 <rect key="frame" x="0.0" y="46" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Contacts" id="823-Wv-sJs">
-                                        <barButtonItem key="rightBarButtonItem" title="+" id="uJN-Mc-vhi">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="uJN-Mc-vhi">
                                             <connections>
                                                 <action selector="addNewContact:" destination="G2S-nW-egP" id="pfw-8r-0nN"/>
                                             </connections>
@@ -200,12 +199,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKe-SF-ZBP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1045.5999999999999" y="132.68365817091455"/>
+            <point key="canvasLocation" x="148" y="629"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit View Controller-->
         <scene sceneID="V0X-Dx-hWa">
             <objects>
-                <viewController id="Cha-12-MgZ" sceneMemberID="viewController">
+                <viewController id="Cha-12-MgZ" customClass="EditViewController" customModule="addressBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uBa-86-Jrh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -215,7 +214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ln2-Ni-KBm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2113" y="99"/>
+            <point key="canvasLocation" x="1393" y="-132"/>
         </scene>
     </scenes>
 </document>
