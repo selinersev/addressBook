@@ -9,7 +9,7 @@
 import UIKit
 
 class ContactsTableViewCell: UITableViewCell {
-
+       
     @IBOutlet weak var nameLabel: UILabel!
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -18,5 +18,6 @@ class ContactsTableViewCell: UITableViewCell {
     
     func populate(with contact: String ){
         nameLabel.text = contact
+        
     }
 }

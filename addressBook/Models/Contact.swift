@@ -44,14 +44,3 @@ class Contact: NSObject,NSCoding{
         aCoder.encode(company, forKey: "company")
     }
 }
-
-extension Contact {
-    var contactValue : CNContact{
-        let contact = CNMutableContact()
-
-        contact.givenName = name
-        contact.familyName = surname
-
-        return contact.copy() as! CNContact
-    }
-}

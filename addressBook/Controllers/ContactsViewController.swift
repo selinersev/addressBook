@@ -25,24 +25,27 @@ class ContactsViewController : UIViewController,DataSendDelegate {
     }
     var contactList = [Contact]()
     let defaults = UserDefaults.standard
-    var contactsDict = [String:[String]]()
-    
+    var contactsDict = [String:[Contact]]()
     var letters = [Character]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.contactsTableView.allowsSelection = false
         self.title = "Contacts"
         fetchContacts()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         reloadUI()
     }
     
     func reloadUI(){
-        contactList = readItems()
+        contactList = SaveManager.readItems()
         let tuple = createNameListDict(contacts: contactList)
         contactsDict = tuple.dict
         letters = tuple.letters
-        self.contactsTableView.reloadData()
+        DispatchQueue.main.async {
+            self.contactsTableView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -52,70 +55,72 @@ class ContactsViewController : UIViewController,DataSendDelegate {
         }
         
         if segue.identifier == "showInfo"{
-            let controller = segue.destination as! EditViewController
-            guard let selected = sender as? [Contact] else {return}
-            controller.contactList = selected
+            let controller = segue.destination as! ContactDetailViewController
+            guard let selected = sender as? Contact else {return}
+            controller.contact = selected
+            controller.contactList = contactList
+            //self.dismiss(animated: true, completion: nil)
         }
     }
-    
-    // Delegate Function
+
     func sendData(contact: Contact) {
         contactList.append(contact)
         self.contactsTableView.reloadData()
-        insertItems()
+        SaveManager.insertItems(contactList: contactList)
         reloadUI()
     }
-    
-    // Functions
-    func readItems() -> [Contact]{
-        guard let data = defaults.object(forKey: "contactList") as? Data else {return []}
-        return NSKeyedUnarchiver.unarchiveObject(with: data) as! [Contact]
-    }
-    
-    func insertItems(){
-        let data = NSKeyedArchiver.archivedData(withRootObject: contactList)
-        defaults.set(data, forKey: "contactList")
-    }
 
-    func createNameListDict(contacts: [Contact]) -> (dict:[String:[String]], letters:[Character]){
-        let names = contactList.map{$0.name}.compactMap{$0}
+    func createNameListDict(contacts: [Contact]) -> (dict:[String:[Contact]], letters:[Character]){
+        let names = contactList
         let letters = contactList.map{$0.name.first}.compactMap{$0}
         let uniqueLetters = Array(Set(letters)).sorted()
-        var newContacts = [String:[String]]()
+        var newContacts = [String:[Contact]]()
         uniqueLetters.forEach { char in
             let firstChar = String(describing: char)
-            newContacts[firstChar] = names.filter{$0.first == char}
+            newContacts[firstChar] = names.filter{$0.name.first == char}
         }
         return (dict:newContacts, letters:uniqueLetters)
     }
     
     func fetchContacts(){
-        let store = CNContactStore()
-        
-        store.requestAccess(for: .contacts) { (granted, err) in
-            if let err = err {
-                print("Failed to request access:",err)
-                return
-            }
-            if granted {
-                print("Access granted")
-                
-                let keys = [CNContactGivenNameKey]
-                let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
-                
-                do {
-                    try store.enumerateContacts(with: request, usingBlock: { (contact, stopPointerIfYouWantToStopEnumerating) in
-                        
-                        print(contact.givenName)
-                        //print(contact.familyName)
-                    })
-                    
-                } catch let err {
-                    print("Failed to enumerate contacts:",err)
+        if let shouldFetch = defaults.object(forKey: "isContactFetched") as? Bool, shouldFetch != true { // First User
+            let newContact = Contact()
+            let store = CNContactStore()
+            
+            store.requestAccess(for: .contacts) { (granted, err) in
+                if let err = err {
+                    print("Failed to request access:",err)
+                    return
                 }
-            } else {
-                print("Access denied..")
+                if granted {
+                    print("Access granted")
+                    
+                    let keys = [CNContactGivenNameKey,CNContactFamilyNameKey,CNContactPhoneNumbersKey]
+                    let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+                    
+                    do {
+                        try store.enumerateContacts(with: request, usingBlock: { (contact, stopPointerIfYouWantToStopEnumerating) in
+                            
+                            newContact.name = contact.givenName
+                            newContact.surname = contact.familyName
+                            guard let phoneNumber = contact.phoneNumbers.first?.value.stringValue else {return}
+                            newContact.phone = phoneNumber
+                            self.contactList.append(newContact)
+                            SaveManager.insertItems(contactList: self.contactList)
+                            self.reloadUI()
+                        })
+                        
+                    } catch let err {
+                        print("Failed to enumerate contacts:",err)
+                    }
+                } else {
+                    print("Access denied..")
+                }
+                self.defaults.set(true, forKey: "isContactFetched")
             }
+        } else { // Already member
+            self.contactList = SaveManager.readItems()
+            reloadUI()
         }
     }
 }
@@ -123,7 +128,8 @@ class ContactsViewController : UIViewController,DataSendDelegate {
 extension ContactsViewController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let x = String(letters[section])
-        let arr = contactsDict[x] ?? []
+        guard let y = contactsDict[x] else {return 0}
+        let arr = y
         return arr.count
     }
     
@@ -136,7 +142,7 @@ extension ContactsViewController : UITableViewDataSource{
         let arr = contactsDict[x] ?? []
         let entry =  arr[indexPath.row]
         let contactCell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactsTableViewCell
-        contactCell.populate(with: entry)
+        contactCell.populate(with: entry.name)
         return contactCell
     }
     
@@ -148,26 +154,32 @@ extension ContactsViewController : UITableViewDataSource{
         if (editingStyle == .delete) {
             
             let x = String(letters[indexPath.section])
-            let arr = contactsDict[x] ?? []
-            let entry =  arr[indexPath.row]
+            guard let y = contactsDict[x] else {return}
+            let arr = y
+            let entry = arr[indexPath.row]
             
-            guard let removeIndex = contactList.firstIndex(where: { $0.name == entry }) else {return}
+            guard let removeIndex = contactList.firstIndex(where: { $0.name == entry.name }) else {return}
             contactList.remove(at: removeIndex)
-            insertItems()
+            SaveManager.insertItems(contactList: contactList)
             reloadUI()
         }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = String(letters[section])
-        label.backgroundColor = UIColor.lightGray
+        label.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.font = UIFont(name:"HelveticaNeue-Bold", size: 22.0)
         return label
     }
     
 }
+
 extension ContactsViewController : UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "showInfo", sender: self.contactList[indexPath.row])
+        let x = String(letters[indexPath.section])
+        let arr = contactsDict[x] ?? []
+        let entry =  arr[indexPath.row]
+        self.performSegue(withIdentifier: "showInfo", sender: entry)
     }
 }

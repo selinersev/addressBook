@@ -12,6 +12,12 @@ import UIKit
 
 class EditViewController : UIViewController {
 
+    weak var delegate : DataSendDelegate?
     var contactList = [Contact]()
     
+//    let contact = Contact()
+//    createContact(contact: contact)
+//    delegate?.sendData(contact: contact)
+//    self.dismiss(animated: true, completion: nil)
+//    
 }

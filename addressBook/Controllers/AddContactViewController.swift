@@ -10,27 +10,28 @@ import UIKit
 
 class AddContactViewController: UIViewController, UITextFieldDelegate {
     
-    
+    //MARK: - Outlets
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var surnameTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var companyTextField: UITextField!
     
-    
+    //MARK : - Properties
     let defaults = UserDefaults.standard
-    var contactList = [Contact]()
     weak var delegate : DataSendDelegate?
+    var editableContact = Contact()
+    var editingMode = false
     
     @IBAction func saveButtonAction(_ sender: UIButton) {
-        let contact = Contact()
+        let contact = editingMode ? self.editableContact : Contact()
         createContact(contact: contact)
         delegate?.sendData(contact: contact)
         self.dismiss(animated: true, completion: nil)
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        editContact()
         self.hideKeyboardWhenSwipe()
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -40,18 +41,13 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
         surnameTextField.inputAccessoryView = toolBar
         phoneTextField.inputAccessoryView = toolBar
         companyTextField.inputAccessoryView = toolBar
-        readItems()
-    }
-
-    func insertItems(){
-        let data = NSKeyedArchiver.archivedData(withRootObject: contactList)
-        defaults.set(data, forKey: "contactList")
-        
     }
     
-    func readItems(){
-        guard let data = defaults.object(forKey: "contactList") as? Data else {return}
-        contactList = NSKeyedUnarchiver.unarchiveObject(with: data) as! [Contact]
+    func editContact(){
+        nameTextField.text = editableContact.name
+        surnameTextField.text = editableContact.surname
+        phoneTextField.text = editableContact.phone
+        companyTextField.text = editableContact.company
     }
     
     func createContact(contact: Contact){
