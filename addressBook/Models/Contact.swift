@@ -10,7 +10,6 @@ import Foundation
 import Contacts
 import ContactsUI
 
-
 class Contact: NSObject,NSCoding{
     
     var name : String = ""

@@ -116,6 +116,7 @@
                         <outlet property="companyTextField" destination="YFY-A9-lKw" id="inx-3w-EEi"/>
                         <outlet property="nameTextField" destination="eLP-xO-4h4" id="Kfn-Am-Swf"/>
                         <outlet property="phoneTextField" destination="gAm-Xe-qaR" id="gKa-7X-Y3G"/>
+                        <outlet property="saveButton" destination="Nic-Xc-vlE" id="MfS-CM-ryn"/>
                         <outlet property="surnameTextField" destination="tU9-69-kvr" id="Nxq-UX-Apy"/>
                     </connections>
                 </viewController>

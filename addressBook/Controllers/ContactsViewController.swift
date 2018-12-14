@@ -21,7 +21,6 @@ class ContactsViewController : UIViewController,DataSendDelegate {
     
     @IBAction func addNewContact(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "addNewContact", sender: contactList)
-        
     }
     var contactList = [Contact]()
     let defaults = UserDefaults.standard
@@ -59,7 +58,6 @@ class ContactsViewController : UIViewController,DataSendDelegate {
             guard let selected = sender as? Contact else {return}
             controller.contact = selected
             controller.contactList = contactList
-            //self.dismiss(animated: true, completion: nil)
         }
     }
 
@@ -83,7 +81,8 @@ class ContactsViewController : UIViewController,DataSendDelegate {
     }
     
     func fetchContacts(){
-        if let shouldFetch = defaults.object(forKey: "isContactFetched") as? Bool, shouldFetch != true { // First User
+        let shouldFetch = defaults.object(forKey: "isContactFetched") as? Bool
+        if shouldFetch != true { // First User
             let newContact = Contact()
             let store = CNContactStore()
             
@@ -178,7 +177,8 @@ extension ContactsViewController : UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let x = String(letters[indexPath.section])
-        let arr = contactsDict[x] ?? []
+        guard let y = contactsDict[x] else {return}
+        let arr = y
         let entry =  arr[indexPath.row]
         self.performSegue(withIdentifier: "showInfo", sender: entry)
     }
