@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7036C8506766D9CABBED17F94FC568B6"
-               BlueprintName = "Pods-addressBook"
+               BlueprintIdentifier = "EC4BFA0CDA5099B221025DF021CF1AFA"
+               BlueprintName = "Cartography"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libPods-addressBook.a">
+               BuildableName = "libCartography.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
