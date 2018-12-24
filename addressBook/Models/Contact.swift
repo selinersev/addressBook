@@ -32,6 +32,11 @@ class Contact: NSObject,NSCoding{
         self.company = company
     }
     
+    convenience init(with contact: CNContact) {
+        let phoneNumber = contact.phoneNumbers.first?.value.stringValue ?? ""
+        self.init(name: contact.givenName, surname: contact.familyName, phone: phoneNumber, company: contact.organizationName)
+    }
+    
     override init() {
         super.init()
     }

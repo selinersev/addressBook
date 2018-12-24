@@ -9,15 +9,8 @@
 import Foundation
 import UIKit
 
-class ContactDetailViewController : UIViewController,DataSendDelegate {
-    func sendData(contact: Contact) {
-        guard let removeIndex = contactList.firstIndex(where: { $0.name == self.contact.name }) else {return}
-        contactList.remove(at: removeIndex)
-        contactList.append(contact)
-        SaveManager.insertItems(contactList: contactList)
-        refreshContactInfo()
-    }
-    
+class ContactDetailViewController : UIViewController {
+
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
@@ -52,3 +45,13 @@ class ContactDetailViewController : UIViewController,DataSendDelegate {
         companyLabel.text = contact.company
     }
 }
+extension ContactDetailViewController: DataSendDelegate{
+    func sendData(contact: Contact) {
+        guard let removeIndex = contactList.firstIndex(where: { $0.name == self.contact.name }) else {return}
+        contactList.remove(at: removeIndex)
+        contactList.append(contact)
+        SaveManager.insertItems(contactList: contactList)
+        refreshContactInfo()
+    }
+}
+

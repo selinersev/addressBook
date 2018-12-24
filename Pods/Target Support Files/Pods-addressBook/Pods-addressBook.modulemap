@@ -1,0 +1,6 @@
+module Pods_addressBook {
+  umbrella header "Pods-addressBook-umbrella.h"
+
+  export *
+  module * { export * }
+}

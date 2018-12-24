@@ -12,12 +12,19 @@ class SaveManager{
     
     class func insertItems(contactList:[Contact]){
         let data = NSKeyedArchiver.archivedData(withRootObject: contactList)
-        UserDefaults.standard.set(data, forKey: "contactList")        
+        save(object: data, for: "contactList")
     }
     
     class func readItems() -> [Contact]{
-        guard let data = UserDefaults.standard.object(forKey: "contactList") as? Data else {return []}
+        guard let data = get(for:"contactList") as? Data else {return []}
         return NSKeyedUnarchiver.unarchiveObject(with: data) as! [Contact]
     }
     
+    class func save(object:Any, for key:String){
+        UserDefaults.standard.set(object, forKey: key)
+    }
+    
+    class func get(for key:String) -> Any?{
+        return UserDefaults.standard.object(forKey: key)
+    }
 }

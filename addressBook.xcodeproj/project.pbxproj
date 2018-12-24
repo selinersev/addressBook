@@ -11,7 +11,7 @@
 		102DAE3A21AFDFBE006F3702 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102DAE3921AFDFBE006F3702 /* ContactsViewController.swift */; };
 		102DAE3C21B03C61006F3702 /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102DAE3B21B03C61006F3702 /* ContactsTableViewCell.swift */; };
 		102DAE3E21B03CCB006F3702 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102DAE3D21B03CCB006F3702 /* Extensions.swift */; };
-		1031B8B421C39AAE00EED150 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1031B8B321C39AAE00EED150 /* Validation.swift */; };
+		1031B8B621CD2B3200EED150 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1031B8B521CD2B3200EED150 /* Contacts.swift */; };
 		10EBDA7A21AD7F0B00C96CA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EBDA7921AD7F0B00C96CA6 /* AppDelegate.swift */; };
 		10EBDA7C21AD7F0B00C96CA6 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EBDA7B21AD7F0B00C96CA6 /* AddContactViewController.swift */; };
 		10EBDA7F21AD7F0B00C96CA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EBDA7D21AD7F0B00C96CA6 /* Main.storyboard */; };
@@ -20,14 +20,16 @@
 		10EBDA8721AD7F0C00C96CA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EBDA8521AD7F0C00C96CA6 /* LaunchScreen.storyboard */; };
 		10F6E8D521B6DBD10024F612 /* SaveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F6E8D421B6DBD10024F612 /* SaveManager.swift */; };
 		10F6E8D721BE5E000024F612 /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F6E8D621BE5E000024F612 /* ContactDetailViewController.swift */; };
+		769A9F1D89DD51214C0026DD /* libPods-addressBook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 630790FF61835583A7110B72 /* libPods-addressBook.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0FCD057844627861682F94B5 /* Pods-addressBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-addressBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-addressBook/Pods-addressBook.release.xcconfig"; sourceTree = "<group>"; };
 		102DAE3721AD8BE1006F3702 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		102DAE3921AFDFBE006F3702 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		102DAE3B21B03C61006F3702 /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		102DAE3D21B03CCB006F3702 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		1031B8B321C39AAE00EED150 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		1031B8B521CD2B3200EED150 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 		10EBDA7621AD7F0B00C96CA6 /* addressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EBDA7921AD7F0B00C96CA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10EBDA7B21AD7F0B00C96CA6 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +40,8 @@
 		10EBDA8821AD7F0C00C96CA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10F6E8D421B6DBD10024F612 /* SaveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveManager.swift; sourceTree = "<group>"; };
 		10F6E8D621BE5E000024F612 /* ContactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
+		15B6187A6A9360BF7597BB2B /* Pods-addressBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-addressBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-addressBook/Pods-addressBook.debug.xcconfig"; sourceTree = "<group>"; };
+		630790FF61835583A7110B72 /* libPods-addressBook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-addressBook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				769A9F1D89DD51214C0026DD /* libPods-addressBook.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +90,7 @@
 			children = (
 				102DAE3721AD8BE1006F3702 /* Contact.swift */,
 				10F6E8D421B6DBD10024F612 /* SaveManager.swift */,
-				1031B8B321C39AAE00EED150 /* Validation.swift */,
+				1031B8B521CD2B3200EED150 /* Contacts.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -103,6 +108,8 @@
 			children = (
 				10EBDA7821AD7F0B00C96CA6 /* addressBook */,
 				10EBDA7721AD7F0B00C96CA6 /* Products */,
+				D9EC59BBC965D3B2FA4B40ED /* Frameworks */,
+				470FCBE55728C31707CEA9A0 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +135,23 @@
 			path = addressBook;
 			sourceTree = "<group>";
 		};
+		470FCBE55728C31707CEA9A0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				15B6187A6A9360BF7597BB2B /* Pods-addressBook.debug.xcconfig */,
+				0FCD057844627861682F94B5 /* Pods-addressBook.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D9EC59BBC965D3B2FA4B40ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				630790FF61835583A7110B72 /* libPods-addressBook.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,6 +159,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10EBDA8B21AD7F0C00C96CA6 /* Build configuration list for PBXNativeTarget "addressBook" */;
 			buildPhases = (
+				F95A8B1EDFC7F7AFB9D87EFE /* [CP] Check Pods Manifest.lock */,
 				10EBDA7221AD7F0B00C96CA6 /* Sources */,
 				10EBDA7321AD7F0B00C96CA6 /* Frameworks */,
 				10EBDA7421AD7F0B00C96CA6 /* Resources */,
@@ -194,6 +219,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F95A8B1EDFC7F7AFB9D87EFE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-addressBook-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		10EBDA7221AD7F0B00C96CA6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -205,9 +251,9 @@
 				102DAE3C21B03C61006F3702 /* ContactsTableViewCell.swift in Sources */,
 				102DAE3821AD8BE1006F3702 /* Contact.swift in Sources */,
 				10EBDA7A21AD7F0B00C96CA6 /* AppDelegate.swift in Sources */,
+				1031B8B621CD2B3200EED150 /* Contacts.swift in Sources */,
 				10F6E8D721BE5E000024F612 /* ContactDetailViewController.swift in Sources */,
 				10F6E8D521B6DBD10024F612 /* SaveManager.swift in Sources */,
-				1031B8B421C39AAE00EED150 /* Validation.swift in Sources */,
 				10EBDA8221AD7F0B00C96CA6 /* addressBook.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,15 +398,13 @@
 		};
 		10EBDA8C21AD7F0C00C96CA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15B6187A6A9360BF7597BB2B /* Pods-addressBook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZSATZE2MZ7;
 				INFOPLIST_FILE = addressBook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selinersev.addressBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -370,15 +414,13 @@
 		};
 		10EBDA8D21AD7F0C00C96CA6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FCD057844627861682F94B5 /* Pods-addressBook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZSATZE2MZ7;
 				INFOPLIST_FILE = addressBook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.selinersev.addressBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
