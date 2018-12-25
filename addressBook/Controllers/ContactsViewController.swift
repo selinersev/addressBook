@@ -9,26 +9,47 @@
 import Foundation
 import UIKit
 import Contacts
-import ContactsUI
+import Cartography
 
 protocol DataSendDelegate: class {
-    func sendData(contact: Contact)
+    func sendContact(contact: Contact)
 }
 
 class ContactsViewController : UIViewController,DataSendDelegate {
-
-    @IBOutlet weak var contactsTableView: UITableView!
     
-    @IBAction func addNewContact(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: "addNewContact", sender: contactList)
-    }
-    var contactList = [Contact]()
-    var contactsDict = [String:[Contact]]()
+    private lazy var tableView = UITableView()
+    private lazy var contactList = [Contact]()
+    private lazy var contactsDict = [String:[Contact]]()
     var letters = [Character]()
+    
+    private lazy var addItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewContact))
+
+    @objc func addNewContact() {
+        let addContactViewController = AddContactViewController()
+        navigationController?.pushViewController(addContactViewController, animated: true)
+        //self.performSegue(withIdentifier: "addNewContact", sender: contactList)
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented") 
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Contacts"
+        tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = UIColor.white
+        tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: "contactCell")
+        view.addSubview(tableView)
+        self.title = "CONTACTS"
+        self.navigationItem.rightBarButtonItem = addItem
+
+        
         ContactService.fetchContacts { (contacts) in
             self.contactList = contacts
             SaveManager.insertItems(contactList: contacts)
@@ -46,11 +67,11 @@ class ContactsViewController : UIViewController,DataSendDelegate {
         contactsDict = tuple.dict
         letters = tuple.letters
         DispatchQueue.main.async {
-            self.contactsTableView.reloadData()
+            self.tableView.reloadData()
         }
     }
     
-    func sendData(contact: Contact) {
+    func sendContact(contact: Contact) {
         contactList.append(contact)
         SaveManager.insertItems(contactList: contactList)
         reloadUI()
@@ -136,6 +157,7 @@ extension ContactsViewController : UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let entry =  getContacts(for: indexPath)
-        self.performSegue(withIdentifier: "showInfo", sender: entry)
+        let contactDetailViewController = ContactDetailViewController()
+        navigationController?.pushViewController(contactDetailViewController, animated: true)
     }
 }

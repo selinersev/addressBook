@@ -14,7 +14,6 @@
 		1031B8B621CD2B3200EED150 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1031B8B521CD2B3200EED150 /* Contacts.swift */; };
 		10EBDA7A21AD7F0B00C96CA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EBDA7921AD7F0B00C96CA6 /* AppDelegate.swift */; };
 		10EBDA7C21AD7F0B00C96CA6 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EBDA7B21AD7F0B00C96CA6 /* AddContactViewController.swift */; };
-		10EBDA7F21AD7F0B00C96CA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EBDA7D21AD7F0B00C96CA6 /* Main.storyboard */; };
 		10EBDA8221AD7F0B00C96CA6 /* addressBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10EBDA8021AD7F0B00C96CA6 /* addressBook.xcdatamodeld */; };
 		10EBDA8421AD7F0C00C96CA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EBDA8321AD7F0C00C96CA6 /* Assets.xcassets */; };
 		10EBDA8721AD7F0C00C96CA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EBDA8521AD7F0C00C96CA6 /* LaunchScreen.storyboard */; };
@@ -33,7 +32,6 @@
 		10EBDA7621AD7F0B00C96CA6 /* addressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EBDA7921AD7F0B00C96CA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10EBDA7B21AD7F0B00C96CA6 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
-		10EBDA7E21AD7F0B00C96CA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10EBDA8121AD7F0B00C96CA6 /* addressBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = addressBook.xcdatamodel; sourceTree = "<group>"; };
 		10EBDA8321AD7F0C00C96CA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10EBDA8621AD7F0C00C96CA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 				102DAE4121B03F4D006F3702 /* Controllers */,
 				102DAE4021B03F36006F3702 /* Extensions */,
 				102DAE3F21B03EFC006F3702 /* SupportingFiles */,
-				10EBDA7D21AD7F0B00C96CA6 /* Main.storyboard */,
 				10EBDA8821AD7F0C00C96CA6 /* Info.plist */,
 			);
 			path = addressBook;
@@ -213,7 +210,6 @@
 			files = (
 				10EBDA8721AD7F0C00C96CA6 /* LaunchScreen.storyboard in Resources */,
 				10EBDA8421AD7F0C00C96CA6 /* Assets.xcassets in Resources */,
-				10EBDA7F21AD7F0B00C96CA6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,14 +257,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		10EBDA7D21AD7F0B00C96CA6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				10EBDA7E21AD7F0B00C96CA6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		10EBDA8521AD7F0C00C96CA6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -404,7 +392,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZSATZE2MZ7;
 				INFOPLIST_FILE = addressBook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.selinersev.addressBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -420,7 +411,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZSATZE2MZ7;
 				INFOPLIST_FILE = addressBook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.selinersev.addressBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
