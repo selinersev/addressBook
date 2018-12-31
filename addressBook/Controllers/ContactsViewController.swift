@@ -15,21 +15,24 @@ protocol DataSendDelegate: class {
     func sendContact(contact: Contact)
 }
 
-class ContactsViewController : UIViewController,DataSendDelegate {
-    
-    private lazy var tableView = UITableView()
-    private lazy var contactList = [Contact]()
-    private lazy var contactsDict = [String:[Contact]]()
+class ContactsViewController : UIViewController, DataSendDelegate {
+
+    var contactList = [Contact]()
+    var contactsDict = [String:[Contact]]()
     var letters = [Character]()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = UIColor.white
+        tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: "contactCell")
+        tableView.separatorColor = .white
+        return tableView
+    }()
     
     private lazy var addItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewContact))
 
-    @objc func addNewContact() {
-        let addContactViewController = AddContactViewController()
-        navigationController?.pushViewController(addContactViewController, animated: true)
-        //self.performSegue(withIdentifier: "addNewContact", sender: contactList)
-    }
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -40,15 +43,9 @@ class ContactsViewController : UIViewController,DataSendDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView = UITableView(frame: self.view.bounds, style: UITableView.Style.plain)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = UIColor.white
-        tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: "contactCell")
         view.addSubview(tableView)
         self.title = "CONTACTS"
         self.navigationItem.rightBarButtonItem = addItem
-
         
         ContactService.fetchContacts { (contacts) in
             self.contactList = contacts
@@ -56,9 +53,16 @@ class ContactsViewController : UIViewController,DataSendDelegate {
             self.reloadUI()
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         reloadUI()
+    }
+    
+    @objc func addNewContact() {
+        let addContactViewController = AddContactViewController()
+        navigationController?.pushViewController(addContactViewController, animated: true)
+        addContactViewController.delegate = self
     }
     
     func reloadUI(){
@@ -99,17 +103,12 @@ class ContactsViewController : UIViewController,DataSendDelegate {
         return (dict:newContacts, letters:uniqueLetters)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addNewContact"{
-            let controller : AddContactViewController = segue.destination as! AddContactViewController
-            controller.delegate = self
-        }
-        
-        if segue.identifier == "showInfo"{
-            let controller = segue.destination as! ContactDetailViewController
-            guard let selected = sender as? Contact else {return}
-            controller.contact = selected
-            controller.contactList = contactList
+    func constraints(){
+        constrain(tableView) { tableView in
+            tableView.leading == tableView.superview!.leading
+            tableView.trailing == tableView.superview!.trailing
+            tableView.top == tableView.superview!.top
+            tableView.bottom == tableView.superview!.bottom
         }
     }
 }
@@ -150,7 +149,6 @@ extension ContactsViewController : UITableViewDataSource{
         label.font = UIFont(name:"HelveticaNeue-Bold", size: 22.0)
         return label
     }
-    
 }
 
 extension ContactsViewController : UITableViewDelegate{
@@ -159,5 +157,8 @@ extension ContactsViewController : UITableViewDelegate{
         let entry =  getContacts(for: indexPath)
         let contactDetailViewController = ContactDetailViewController()
         navigationController?.pushViewController(contactDetailViewController, animated: true)
+        guard let selected = entry as? Contact else {return}
+        contactDetailViewController.contact = selected
+        contactDetailViewController.contactList = contactList
     }
 }

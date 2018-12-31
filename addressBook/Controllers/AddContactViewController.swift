@@ -11,21 +11,74 @@ import Cartography
 
 class AddContactViewController: UIViewController, UITextFieldDelegate {
     
-    private lazy var nameTextField = UITextField()
-    private lazy var surnameTextField = UITextField()
-    private lazy var phoneTextField = UITextField()
-    private lazy var companyTextField = UITextField()
+    private lazy var nameTextField: UITextField = {
+        return setTextField(placeholder: "Jane")
+    }()
+    private lazy var surnameTextField: UITextField = {
+        return setTextField(placeholder: "Doe")
+    }()
+    private lazy var phoneTextField: UITextField = {
+        return setTextField(placeholder: "(000) 000 00 00")
+    }()
+    private lazy var companyTextField: UITextField = {
+        return setTextField(placeholder: "")
+    }()
     
-    private lazy var saveButton = UIButton()
-    private lazy var nameLabel = UILabel()
-    private lazy var surnameLabel = UILabel()
-    private lazy var phoneNumberLabel = UILabel()
-    private lazy var companyLabel = UILabel()
-    private lazy var labelStackView = UIStackView()
-    private lazy var textFieldStackView = UIStackView()
-    private lazy var baseStackView = UIStackView()
-
-    private lazy var closeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: nil, action: #selector(closeButtonAction))
+    private lazy var saveButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.setTitleColor(.blue, for: .normal)
+        button.setTitle("Save", for: .normal)
+        button.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var nameLabel: UILabel = {
+        return setLabel(text: "Name")
+    }()
+    private lazy var surnameLabel: UILabel = {
+        return setLabel(text: "Surname")
+    }()
+    private lazy var phoneNumberLabel: UILabel = {
+        return setLabel(text: "Phone Number")
+    }()
+    private lazy var companyLabel: UILabel = {
+        return setLabel(text: "Company")
+    }()
+   
+    private lazy var labelStackView: UIStackView = {
+        let stackView = UIStackView.init(arrangedSubviews: [nameLabel,surnameLabel,phoneNumberLabel,companyLabel])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 53
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    private lazy var textFieldStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addArrangedSubview(nameTextField)
+        stackView.addArrangedSubview(surnameTextField)
+        stackView.addArrangedSubview(phoneTextField)
+        stackView.addArrangedSubview(companyTextField)
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 46
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    private lazy var baseStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addArrangedSubview(labelStackView)
+        stackView.addArrangedSubview(textFieldStackView)
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 42
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
 
     let defaults = UserDefaults.standard
     weak var delegate : DataSendDelegate?
@@ -39,127 +92,22 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    let toolBar = UIToolbar()
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpSaveButton()
-        setUpLabels()
-        setUpTextFields()
-        setUpBaseStackView()
-        
+        view.addSubview(baseStackView)
+        view.addSubview(saveButton)
+        contraints()
         editContact()
         self.hideKeyboardWhenSwipe()
-        let toolBar = UIToolbar()
+        
         toolBar.sizeToFit()
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.doneClicked))
         toolBar.setItems([doneButton], animated: false)
-        nameTextField.inputAccessoryView = toolBar
-        surnameTextField.inputAccessoryView = toolBar
-        phoneTextField.inputAccessoryView = toolBar
-        companyTextField.inputAccessoryView = toolBar
-
     }
-    
-    func setUpBaseStackView() {
-        baseStackView.addArrangedSubview(labelStackView)
-        baseStackView.addArrangedSubview(textFieldStackView)
-        baseStackView.axis = .horizontal
-        textFieldStackView.distribution = .fill
-        textFieldStackView.alignment = .fill
-        textFieldStackView.spacing = 42
-        textFieldStackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(baseStackView)
-        
-        constrain(baseStackView) { baseStackView in
-            baseStackView.bottom == baseStackView.superview!.bottom + 205
-            baseStackView.leading == baseStackView.superview!.leading + 50
-            baseStackView.trailing == baseStackView.superview!.trailing - 50
-            baseStackView.top == baseStackView.superview!.top - 130
-        }
-    }
-    
-    func setUpTextFields() {
-        nameTextField.borderStyle = .line
-        nameTextField.placeholder = "Jane"
-        nameTextField.backgroundColor = .white
-        nameTextField.textColor = .black
-        nameTextField.textAlignment = .left
-        
-        surnameTextField.borderStyle = .line
-        surnameTextField.placeholder = "Doe"
-        surnameTextField.backgroundColor = .white
-        surnameTextField.textColor = .black
-        surnameTextField.textAlignment = .left
-        
-        phoneTextField.borderStyle = .line
-        phoneTextField.placeholder = "(000) 000 00 00"
-        phoneTextField.backgroundColor = .white
-        phoneTextField.textColor = .black
-        phoneTextField.textAlignment = .left
-        
-        companyTextField.borderStyle = .line
-        companyTextField.backgroundColor = .white
-        companyTextField.textColor = .black
-        companyTextField.textAlignment = .left
-        
-        textFieldStackView.addArrangedSubview(nameTextField)
-        textFieldStackView.addArrangedSubview(surnameTextField)
-        textFieldStackView.addArrangedSubview(phoneTextField)
-        textFieldStackView.addArrangedSubview(companyTextField)
-        textFieldStackView.axis = .vertical
-        textFieldStackView.distribution = .fillEqually
-        textFieldStackView.alignment = .fill
-        textFieldStackView.spacing = 46
-        textFieldStackView.translatesAutoresizingMaskIntoConstraints = false
-
-    }
-    
-    func setUpLabels() {
-        nameLabel.text = "Name"
-        surnameLabel.text = "Surname"
-        phoneNumberLabel.text = "Phone"
-        companyLabel.text = "Company"
-        
-        nameLabel.font = UIFont(name: "System", size: 17)
-        surnameLabel.font = UIFont(name: "System", size: 17)
-        phoneNumberLabel.font = UIFont(name: "System", size: 17)
-        companyLabel.font = UIFont(name: "System", size: 17)
-        
-        nameLabel.textAlignment = .left
-        surnameLabel.textAlignment = .left
-        phoneNumberLabel.textAlignment = .left
-        companyLabel.textAlignment = .left
-        
-        labelStackView.addArrangedSubview(nameLabel)
-        labelStackView.addArrangedSubview(surnameLabel)
-        labelStackView.addArrangedSubview(phoneNumberLabel)
-        labelStackView.addArrangedSubview(companyLabel)
-        labelStackView.axis = .vertical
-        labelStackView.distribution = .fillEqually
-        labelStackView.alignment = .fill
-        labelStackView.spacing = 53
-        labelStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-    }
-    
-    func setUpSaveButton() {
-        saveButton.backgroundColor = .white
-        saveButton.setTitleColor(.blue, for: .normal)
-        saveButton.setTitle("Save", for: .normal)
-        saveButton.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
-        view.addSubview(saveButton)
-        
-        constrain(saveButton,baseStackView) { saveButton, baseStackView in
-            saveButton.bottom == saveButton.superview!.bottom + 87
-            saveButton.trailing == saveButton.superview!.trailing - 50
-            saveButton.leading == saveButton.superview!.leading + 288
-            saveButton.top == baseStackView.bottom - 88
-        }
-    }
-    
-    func setUpNavBar() {
-        self.navigationItem.rightBarButtonItem = closeItem
-        self.title = "ADD CONTACT"
+   
+    override var inputAccessoryView: UIView{
+        return toolBar
     }
     
     @objc func saveButtonAction() {
@@ -168,11 +116,34 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
             createContact(contact: contact)
         }
         delegate?.sendContact(contact: contact)
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
-    @objc func closeButtonAction() {
-        self.dismiss(animated: true, completion: nil)
+    func contraints(){
+        constrain(baseStackView,saveButton) { baseStackView, saveButton in
+            baseStackView.leading == baseStackView.superview!.leading + 50
+            baseStackView.trailing == baseStackView.superview!.trailing - 50
+            baseStackView.centerY == baseStackView.superview!.centerY
+            saveButton.trailing == saveButton.superview!.trailing - 50
+            saveButton.top == baseStackView.bottom + 100
+        }
+    }
+    
+    func setTextField(placeholder: String) -> UITextField{
+        let textField = UITextField()
+        textField.borderStyle = .line
+        textField.placeholder = placeholder
+        textField.backgroundColor = .white
+        textField.textColor = .black
+        textField.textAlignment = .left
+        return textField
+    }
+    
+    func setLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.font = UIFont(name: "System", size: 17)
+        return label
     }
     
     func editContact(){
