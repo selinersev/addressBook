@@ -14,20 +14,12 @@ class ContactDetailViewController : UIViewController {
 
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "System Bold", size: 40)
+        label.font = UIFont.boldSystemFont(ofSize: 40)
         return label
     }()
-    private lazy var phoneNumberLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "System", size: 17)
-        
-        return label
-    }()
-    private lazy var companyLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "System", size: 17)
-        return label
-    }()
+    private lazy var phoneNumberLabel = UILabel()
+    
+    private lazy var companyLabel = UILabel()
     
     private lazy var editItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(editButtonAction))
     

@@ -12,6 +12,7 @@
 		102DAE3C21B03C61006F3702 /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102DAE3B21B03C61006F3702 /* ContactsTableViewCell.swift */; };
 		102DAE3E21B03CCB006F3702 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102DAE3D21B03CCB006F3702 /* Extensions.swift */; };
 		1031B8B621CD2B3200EED150 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1031B8B521CD2B3200EED150 /* Contacts.swift */; };
+		103DE4B421DA1DF6000B0F7C /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DE4B321DA1DF6000B0F7C /* TextField.swift */; };
 		10EBDA7A21AD7F0B00C96CA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EBDA7921AD7F0B00C96CA6 /* AppDelegate.swift */; };
 		10EBDA7C21AD7F0B00C96CA6 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EBDA7B21AD7F0B00C96CA6 /* AddContactViewController.swift */; };
 		10EBDA8221AD7F0B00C96CA6 /* addressBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10EBDA8021AD7F0B00C96CA6 /* addressBook.xcdatamodeld */; };
@@ -29,6 +30,7 @@
 		102DAE3B21B03C61006F3702 /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		102DAE3D21B03CCB006F3702 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1031B8B521CD2B3200EED150 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
+		103DE4B321DA1DF6000B0F7C /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		10EBDA7621AD7F0B00C96CA6 /* addressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EBDA7921AD7F0B00C96CA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10EBDA7B21AD7F0B00C96CA6 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				102DAE3721AD8BE1006F3702 /* Contact.swift */,
 				10F6E8D421B6DBD10024F612 /* SaveManager.swift */,
 				1031B8B521CD2B3200EED150 /* Contacts.swift */,
+				103DE4B321DA1DF6000B0F7C /* TextField.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				102DAE3A21AFDFBE006F3702 /* ContactsViewController.swift in Sources */,
+				103DE4B421DA1DF6000B0F7C /* TextField.swift in Sources */,
 				10EBDA7C21AD7F0B00C96CA6 /* AddContactViewController.swift in Sources */,
 				102DAE3E21B03CCB006F3702 /* Extensions.swift in Sources */,
 				102DAE3C21B03C61006F3702 /* ContactsTableViewCell.swift in Sources */,

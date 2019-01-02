@@ -104,6 +104,7 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
         toolBar.sizeToFit()
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.doneClicked))
         toolBar.setItems([doneButton], animated: false)
+        phoneTextField.delegate = self
     }
    
     override var inputAccessoryView: UIView{
@@ -161,18 +162,23 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
 
     func formatNumber(number: String) -> String {
         let phoneNumber = number.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-        let format = "(000) 000 00 00"
+        guard !phoneNumber.isEmpty else {return ""}
+        let format = "(###) ### ## ##"
         var result = ""
         var index = phoneNumber.startIndex
         for char in format {
-            if char == "0" {
+            if (char == " ") || (char == "(") || (char == ")"){
+                break
+            }
+            if char == "#" {
                 result.append(phoneNumber[index])
                 index = phoneNumber.index(after: index)
-            } else {
+            }
+            else {
                 result.append(char)
             }
         }
-        return "+90 "+result
+        return result
     }
     
     func isValid() -> Bool{
@@ -201,5 +207,48 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
     @objc func doneClicked(){
         view.endEditing(true)
     }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else {return true}
+        textField.text = formatNumber(number: text)
+//        let textX = text.prefix(FormatterPatternType.phoneNumber.pattern(for: text).count)
+//        textField.text = String(textX).applyPatternOnNumbers(for: .phoneNumber)
+        return true
+    }
 }
 
+extension String {
+    func applyPatternOnNumbers(for type: FormatterPatternType) -> String {
+        var pureNumber = self.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        let pattern = type.pattern(for: self)
+        for index in 0 ..< pattern.count {
+            guard index < pureNumber.count else { return pureNumber }
+            let stringIndex = String.Index(encodedOffset: index)
+            let patternCharacter = pattern[stringIndex]
+            guard patternCharacter != type.replacmentCharacter else { continue }
+            pureNumber.insert(patternCharacter, at: stringIndex)
+        }
+        return pureNumber
+    }
+}
+
+// MARK: - Enums
+enum FormatterPatternType {
+    case phoneNumber, amex, mastercard, visa
+    
+    func pattern(for text: String) -> String {
+        switch self {
+        case .phoneNumber:
+            return text.first == "0" ? "#(###) ### ## ##" : "(###) ### ## ##"
+        case .mastercard, .visa:
+            return "#### #### #### ####"
+        case .amex:
+            return "#### ###### #####"
+        }
+    }
+    
+    var replacmentCharacter: Character {
+        return "#"
+    }
+}
