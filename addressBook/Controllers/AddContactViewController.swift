@@ -80,6 +80,7 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
         return stackView
     }()
 
+    let toolBar = UIToolbar()
     let defaults = UserDefaults.standard
     weak var delegate : DataSendDelegate?
     var editableContact = Contact()
@@ -92,9 +93,10 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    let toolBar = UIToolbar()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "ADD CONTACT"
         view.addSubview(baseStackView)
         view.addSubview(saveButton)
         contraints()
@@ -167,9 +169,6 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
         var result = ""
         var index = phoneNumber.startIndex
         for char in format {
-            if (char == " ") || (char == "(") || (char == ")"){
-                break
-            }
             if char == "#" {
                 result.append(phoneNumber[index])
                 index = phoneNumber.index(after: index)
@@ -211,9 +210,9 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else {return true}
-        textField.text = formatNumber(number: text)
-//        let textX = text.prefix(FormatterPatternType.phoneNumber.pattern(for: text).count)
-//        textField.text = String(textX).applyPatternOnNumbers(for: .phoneNumber)
+        //textField.text = formatNumber(number: text)
+        let textX = text.prefix(FormatterPatternType.phoneNumber.pattern(for: text).count)
+        textField.text = String(textX).applyPatternOnNumbers(for: .phoneNumber)
         return true
     }
 }
@@ -226,7 +225,7 @@ extension String {
             guard index < pureNumber.count else { return pureNumber }
             let stringIndex = String.Index(encodedOffset: index)
             let patternCharacter = pattern[stringIndex]
-            guard patternCharacter != type.replacmentCharacter else { continue }
+            guard patternCharacter != type.replacementCharacter else { continue }
             pureNumber.insert(patternCharacter, at: stringIndex)
         }
         return pureNumber
@@ -248,7 +247,23 @@ enum FormatterPatternType {
         }
     }
     
-    var replacmentCharacter: Character {
+    var replacementCharacter: Character {
         return "#"
+    }
+}
+
+//Extension
+
+extension AddContactViewController {
+    func hideKeyboardWhenSwipe() {
+        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(AddContactViewController.dismissKeyboard))
+        swipe.cancelsTouchesInView = false
+        swipe.direction = .down
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(swipe)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

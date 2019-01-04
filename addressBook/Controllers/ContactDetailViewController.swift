@@ -46,6 +46,7 @@ class ContactDetailViewController : UIViewController {
         addContactViewController.editingMode = true
         addContactViewController.editableContact = contact
         addContactViewController.delegate = self
+        addContactViewController.title = "Edit Contact"
         navigationController?.pushViewController(addContactViewController, animated: true)
     }
     
@@ -70,7 +71,6 @@ class ContactDetailViewController : UIViewController {
     
     func setupUI(){
         self.navigationItem.rightBarButtonItem = editItem
-        self.title = "ADD CONTACT"
         view.addSubview(nameLabel)
         view.addSubview(phoneNumberLabel)
         view.addSubview(companyLabel)
