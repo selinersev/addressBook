@@ -96,7 +96,7 @@ class AddContactViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "ADD CONTACT"
+        self.title = editingMode ? "Edit Contact" : "ADD CONTACT"
         view.addSubview(baseStackView)
         view.addSubview(saveButton)
         contraints()

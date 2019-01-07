@@ -46,7 +46,6 @@ class ContactDetailViewController : UIViewController {
         addContactViewController.editingMode = true
         addContactViewController.editableContact = contact
         addContactViewController.delegate = self
-        addContactViewController.title = "Edit Contact"
         navigationController?.pushViewController(addContactViewController, animated: true)
     }
     
