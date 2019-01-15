@@ -77,7 +77,7 @@ class ContactDetailViewController : UIViewController {
 }
 extension ContactDetailViewController: DataSendDelegate{
     func sendContact(contact: Contact) {
-        guard let removeIndex = contactList.firstIndex(where: { $0.name == self.contact.name }) else {return}
+        guard let removeIndex = contactList.firstIndex(of: { $0.name == self.contact.name }) else {return}
         contactList.remove(at: removeIndex)
         contactList.append(contact)
         SaveManager.insertItems(contactList: contactList)
