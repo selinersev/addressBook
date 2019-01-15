@@ -128,7 +128,6 @@
 				1BA3586321EDC549003E501B /* ViewModels */,
 				102DAE4221B03FC9006F3702 /* Models */,
 				102DAE4121B03F4D006F3702 /* Controllers */,
-				102DAE4321B03FDB006F3702 /* Cells */,
 				102DAE3F21B03EFC006F3702 /* SupportingFiles */,
 				10EBDA8821AD7F0C00C96CA6 /* Info.plist */,
 			);
@@ -148,6 +147,7 @@
 		1BA3586421EDC559003E501B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				102DAE4321B03FDB006F3702 /* Cells */,
 				1BA3586521EDC74E003E501B /* SaveManagerView.swift */,
 				1BA3586721EDC768003E501B /* ContactView.swift */,
 				1BA3586921EDCC34003E501B /* ContactServiceView.swift */,
