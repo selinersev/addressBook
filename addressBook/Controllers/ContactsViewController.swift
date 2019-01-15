@@ -106,10 +106,6 @@ class ContactsViewController : UIViewController, DataSendDelegate {
     func constraints(){
         constrain(tableView) { tableView in
             tableView.edges == inset(tableView.superview!.edges, 0, 0, 0, 0)
-//            tableView.leading == tableView.superview!.leading
-//            tableView.trailing == tableView.superview!.trailing
-//            tableView.top == tableView.superview!.top
-//            tableView.bottom == tableView.superview!.bottom
         }
     }
 }

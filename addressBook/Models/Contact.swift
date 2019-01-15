@@ -10,20 +10,12 @@ import Foundation
 import Contacts
 import ContactsUI
 
-class Contact: NSObject,NSCoding{
+class Contact{
     
-    var name : String = ""
-    var surname : String = ""
-    var phone : String = ""
-    var company : String = ""
-    
-    required convenience init?(coder aDecoder: NSCoder) {
-        let name = aDecoder.decodeObject(forKey: "name") as! String
-        let surname = aDecoder.decodeObject(forKey: "surname") as! String
-        let phone = aDecoder.decodeObject(forKey: "phone") as! String
-        let company = aDecoder.decodeObject(forKey: "company") as! String
-        self.init(name: name,surname: surname,phone: phone,company: company)
-    }
+    var name: String
+    var surname: String
+    var phone: String
+    var company: String
     
     init(name:String,surname:String,phone:String,company:String) {
         self.name = name
@@ -31,20 +23,9 @@ class Contact: NSObject,NSCoding{
         self.phone = phone
         self.company = company
     }
-    
+
     convenience init(with contact: CNContact) {
         let phoneNumber = contact.phoneNumbers.first?.value.stringValue ?? ""
         self.init(name: contact.givenName, surname: contact.familyName, phone: phoneNumber, company: contact.organizationName)
-    }
-    
-    override init() {
-        super.init()
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "name")
-        aCoder.encode(surname, forKey: "surname")
-        aCoder.encode(phone, forKey: "phone")
-        aCoder.encode(company, forKey: "company")
     }
 }
